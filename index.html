@@ -1,0 +1,278 @@
+<!--
+  Matt’s Birthday Website — single-file starter
+  - 100% free stack: plain HTML/CSS/JS. No build tools.
+  - Works on GitHub Pages / Netlify / Cloudflare Pages.
+  - 4–5 tabs via hash routing (#home, #timeline, #memories, #messages, #about).
+  - Everything is in one file for simplicity. You can split later if you want.
+
+  How to use:
+  1) Replace placeholder text/images.
+  2) (Optional) Adjust colors in the :root CSS variables.
+  3) Commit this file as index.html in a public GitHub repo and enable GitHub Pages.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday, Matt! 🎉</title>
+  <meta name="description" content="A tiny birthday site for Matt — made with ❤️ by Lucía." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>">
+  <style>
+    :root{
+      --bg: #0b1220;
+      --card: #131b2d;
+      --text: #e6edf7;
+      --muted: #9fb0d0;
+      --brand: #7c9cf5; /* change this to tweak theme */
+      --brand-2:#70e1d2;
+      --shadow: 0 10px 25px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      background: radial-gradient(1200px 800px at 10% -10%, rgba(124,156,245,.35), transparent 60%),
+                  radial-gradient(1200px 800px at 90% -10%, rgba(112,225,210,.25), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+    }
+    a{color:var(--brand)}
+    .wrap{max-width:1000px; margin:0 auto; padding:28px;}
+    header{
+      position:sticky; top:0; z-index:10; backdrop-filter: blur(8px);
+      background: linear-gradient(180deg, rgba(11,18,32,.9), rgba(11,18,32,.6));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex; align-items:center; gap:14px;}
+    .logo{display:flex; align-items:center; gap:10px; font-weight:700}
+    .logo-badge{width:34px; height:34px; border-radius:10px; display:grid; place-items:center; background:
+      linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow:var(--shadow)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap; margin-left:auto}
+    .tab{appearance:none; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.03);
+      color:var(--text); padding:8px 12px; border-radius:12px; cursor:pointer; transition:.2s}
+    .tab[aria-current="page"], .tab:hover{border-color:rgba(255,255,255,.18); background:rgba(255,255,255,.08)}
+
+    .hero{margin:24px 0 16px; display:grid; grid-template-columns: 1.1fr .9fr; gap:18px}
+    @media (max-width:860px){ .hero{grid-template-columns:1fr} }
+
+    .card{background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08); padding:18px; border-radius:var(--radius); box-shadow:var(--shadow)}
+    .title{font-size: clamp(24px, 4vw, 42px); margin:0 0 6px}
+    .subtitle{color:var(--muted); margin-top:0}
+
+    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:12px}
+    .col-12{grid-column: span 12}
+    .col-6{grid-column: span 6}
+    @media (max-width:760px){ .col-6{grid-column: span 12} }
+
+    .btn{display:inline-flex; align-items:center; gap:8px; border:1px solid rgba(255,255,255,.12);
+      padding:10px 14px; border-radius:12px; background:rgba(255,255,255,.04); color:var(--text);
+      text-decoration:none; cursor:pointer; transition:.2s}
+    .btn:hover{background:rgba(255,255,255,.08)}
+
+    .pill{display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(124,156,245,.15);
+      border:1px solid rgba(124,156,245,.35); color:#cfe0ff; font-size:12px}
+
+    .gallery{display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:10px}
+    .gallery img{width:100%; height:180px; object-fit:cover; border-radius:14px; border:1px solid rgba(255,255,255,.08)}
+
+    footer{opacity:.7; text-align:center; padding:30px}
+    .hide{display:none}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="logo">
+        <div class="logo-badge">🎉</div>
+        <div>Matt’s <span style="color:var(--brand)">Birthday</span></div>
+      </div>
+      <nav class="tabs" aria-label="Main">
+        <a class="tab" href="#home">Home</a>
+        <a class="tab" href="#timeline">Timeline</a>
+        <a class="tab" href="#memories">Memories</a>
+        <a class="tab" href="#messages">Messages</a>
+        <a class="tab" href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO / HOME -->
+    <section id="home" class="view">
+      <div class="hero">
+        <div class="card">
+          <p class="pill">Surprise site</p>
+          <h1 class="title">Happy Birthday, Matt! 🧁</h1>
+          <p class="subtitle">A tiny corner of the web made by Lucía — memories, messages, and a little confetti.
+          </p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
+            <button class="btn" id="confettiBtn" title="Launch confetti">🎊 Launch confetti</button>
+            <a class="btn" href="#memories">📸 See memories</a>
+            <a class="btn" href="#messages">✍️ Leave a message</a>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin:.2rem 0 6px">When’s the party?</h3>
+          <p class="subtitle">Countdown to birthday:</p>
+          <div id="countdown" style="font-size:28px; margin:12px 0 4px">—</div>
+          <p class="subtitle" style="margin-top:6px">(Change the date in the script!)</p>
+          <hr style="border:none; border-top:1px solid rgba(255,255,255,.08); margin:14px 0">
+          <p style="margin:0">Quick links: 
+            <a href="#timeline">Timeline</a> • 
+            <a href="#about">About</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline" class="view hide">
+      <div class="card">
+        <h2 style="margin:0 0 10px">Timeline</h2>
+        <p class="subtitle">Milestones & mini-stories. Edit inside <code>#timeline</code>.</p>
+        <div class="grid">
+          <div class="col-6 card">
+            <h3>2019 — First trip to …</h3>
+            <p>Write a 2–3 sentence memory here. Keep it light; add photos in the gallery.</p>
+          </div>
+          <div class="col-6 card">
+            <h3>2022 — Big achievement</h3>
+            <p>Another little story. Swap dates/titles as you like.</p>
+          </div>
+          <div class="col-6 card">
+            <h3>2024 — New beginnings</h3>
+            <p>Short note about something fun or meaningful.</p>
+          </div>
+          <div class="col-6 card">
+            <h3>2025 — Today 🎂</h3>
+            <p>Write a birthday note to Matt here.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEMORIES (GALLERY) -->
+    <section id="memories" class="view hide">
+      <div class="card">
+        <h2 style="margin:0 0 10px">Memories</h2>
+        <p class="subtitle">Drop your JPG/PNG files in the repo’s <code>/images</code> folder and update the <code>src</code> paths below.</p>
+        <div class="gallery">
+          <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=800&auto=format&fit=crop" alt="Memory 1">
+          <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?q=80&w=800&auto=format&fit=crop" alt="Memory 2">
+          <img src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?q=80&w=800&auto=format&fit=crop" alt="Memory 3">
+          <img src="https://images.unsplash.com/photo-1487412720507-3d89d89cc466?q=80&w=800&auto=format&fit=crop" alt="Memory 4">
+        </div>
+      </div>
+    </section>
+
+    <!-- MESSAGES (Guestbook via Google Form or Formspree) -->
+    <section id="messages" class="view hide">
+      <div class="card">
+        <h2 style="margin:0 0 10px">Leave Matt a Message</h2>
+        <p class="subtitle">Simplest free option: embed a Google Form or use Formspree free tier.</p>
+        <div class="grid">
+          <div class="col-6">
+            <div class="card">
+              <h3>Embedded form (replace iframe src)</h3>
+              <div style="aspect-ratio: 16/10; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:12px; overflow:hidden">
+                <!-- Replace with your Google Form embed link -->
+                <iframe title="Guestbook" src="about:blank" style="width:100%; height:100%; border:0"></iframe>
+              </div>
+              <p class="subtitle" style="margin-top:10px">Create a Google Form → Send → Embed HTML → paste here.</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card">
+              <h3>Formspree (no embed)</h3>
+              <form id="fs" method="POST" action="#" onsubmit="alert('This is a demo. Replace action URL with Formspree endpoint.'); return false;">
+                <label>Name<br><input required name="name" placeholder="Your name" style="width:100%"></label>
+                <br><br>
+                <label>Message<br><textarea required name="message" rows="4" placeholder="Write a nice note…" style="width:100%"></textarea></label>
+                <br><br>
+                <button class="btn" type="submit">Send</button>
+              </form>
+              <p class="subtitle" style="margin-top:10px">Free: create a Formspree project → copy endpoint → replace the <code>action</code> URL above.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="view hide">
+      <div class="card">
+        <h2 style="margin:0 0 10px">About this site</h2>
+        <p>This tiny site was hand‑made for Matt’s birthday by Lucía. Built with plain HTML, CSS and a pinch of JavaScript. No frameworks, no build step, deploy anywhere for free.</p>
+        <ul>
+          <li>Icons: native emoji (free and universal)</li>
+          <li>Images: try <a href="https://unsplash.com/" target="_blank" rel="noreferrer">Unsplash</a>, <a href="https://www.pexels.com/" target="_blank" rel="noreferrer">Pexels</a></li>
+          <li>Fonts: system font stack (fast & free). Swap to <a href="https://fonts.google.com/" target="_blank" rel="noreferrer">Google Fonts</a> if you like.</li>
+          <li>Hosting: <a href="https://pages.github.com/" target="_blank" rel="noreferrer">GitHub Pages</a> / <a href="https://www.netlify.com/" target="_blank" rel="noreferrer">Netlify</a> / <a href="https://pages.cloudflare.com/" target="_blank" rel="noreferrer">Cloudflare Pages</a> — all have free tiers.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Made with ❤️ by Lucía · <span id="year"></span>
+  </footer>
+
+  <script>
+    // ======= Tiny router (hash-based) =======
+    const tabs = Array.from(document.querySelectorAll('.tab'))
+    const views = Array.from(document.querySelectorAll('.view'))
+    function showView(hash){
+      const id = (hash || location.hash || '#home').replace('#','')
+      views.forEach(v => v.classList.toggle('hide', v.id !== id))
+      tabs.forEach(t => t.setAttribute('aria-current', t.getAttribute('href') === '#' + id ? 'page' : 'false'))
+      if(!location.hash) history.replaceState(null, '', '#home')
+    }
+    window.addEventListener('hashchange', () => showView(location.hash))
+    showView(location.hash)
+
+    // ======= Countdown (set your date) =======
+    const deadline = new Date('2025-09-26T00:00:00'); // <- CHANGE to Matt's birthday date/time
+    const el = document.getElementById('countdown')
+    function tick(){
+      const now = new Date();
+      const diff = deadline - now;
+      if(diff <= 0){ el.textContent = 'It\'s today! 🎂'; return }
+      const d = Math.floor(diff/86400000)
+      const h = Math.floor((diff%86400000)/3600000)
+      const m = Math.floor((diff%3600000)/60000)
+      el.textContent = `${d}d ${h}h ${m}m`
+    }
+    tick(); setInterval(tick, 30000)
+
+    // ======= Confetti (super-light inline) =======
+    const btn = document.getElementById('confettiBtn')
+    btn?.addEventListener('click', () => {
+      // Minimal confetti: create floating emojis
+      const n = 40;
+      for(let i=0;i<n;i++){
+        const s = document.createElement('div');
+        s.textContent = ['🎈','🎊','🎉','✨'][Math.floor(Math.random()*4)]
+        s.style.position='fixed';
+        s.style.left = (Math.random()*100)+'vw';
+        s.style.top='-10vh';
+        s.style.fontSize=(16+Math.random()*24)+'px';
+        s.style.transition='transform 2.2s ease-out, opacity 2.2s';
+        s.style.willChange='transform, opacity';
+        s.style.zIndex=9999;
+        document.body.appendChild(s);
+        requestAnimationFrame(()=>{
+          s.style.transform=`translateY(${110+Math.random()*20}vh) rotate(${(Math.random()*720-360)}deg)`;
+          s.style.opacity='0';
+        })
+        setTimeout(()=>s.remove(), 2500)
+      }
+    })
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear()
+  </script>
+</body>
+</html>
