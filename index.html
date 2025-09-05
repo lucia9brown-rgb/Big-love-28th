@@ -222,9 +222,18 @@
       if(!location.hash) history.replaceState(null, '', '#home');
     }
 
-    function isLocked(){
-      return new Date() < UNLOCK_AT;
-    }
+    function isPreviewMode(){
+  const u = new URL(location.href);
+  if (u.searchParams.get('preview') === '1'){ localStorage.setItem('previewMode','1'); return true; }
+  if (u.searchParams.get('preview') === '0'){ localStorage.removeItem('previewMode'); return false; }
+  return localStorage.getItem('previewMode') === '1';
+}
+
+   function isLocked(){
+  if (isPreviewMode()) return false;      // preview unlocks everything
+  return new Date() < UNLOCK_AT;
+}
+
 
     function lockUI(){
       tabsEl.classList.add('locked');
