@@ -6,89 +6,134 @@
   <title>Happy Birthday, my love! 🎉</title>
   <meta name="description" content="made with ❤️ by Lucía." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>">
+ <link rel="preconnect" href="https://fonts.googleapis.com"> 
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+ 
   <style>
-    :root{
-      --bg: #0b1220;
-      --card: #131b2d;
-      --text: #e6edf7;
-      --muted: #9fb0d0;
-      --brand: #7c9cf5;
-      --brand-2:#70e1d2;
-      --shadow: 0 10px 25px rgba(0,0,0,.35);
-      --radius: 18px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-      background: radial-gradient(1200px 800px at 10% -10%, rgba(124,156,245,.35), transparent 60%),
-                  radial-gradient(1200px 800px at 90% -10%, rgba(112,225,210,.25), transparent 60%),
-                  var(--bg);
-      color:var(--text);
-    }
-    a{color:var(--brand)}
-    .wrap{max-width:1000px; margin:0 auto; padding:28px;}
-    header{
-      position:sticky; top:0; z-index:10; backdrop-filter: blur(8px);
-      background: linear-gradient(180deg, rgba(11,18,32,.9), rgba(11,18,32,.6));
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .nav{display:flex; align-items:center; gap:14px;}
-    .logo{display:flex; align-items:center; gap:10px; font-weight:700}
-    .logo-badge{width:34px; height:34px; border-radius:10px; display:grid; place-items:center; background:
-      linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow:var(--shadow)}
-    .tabs{display:flex; gap:8px; flex-wrap:wrap; margin-left:auto}
-    .tab{appearance:none; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.03);
-      color:var(--text); padding:8px 12px; border-radius:12px; cursor:pointer; transition:.2s}
-    .tab[aria-current="page"], .tab:hover{border-color:rgba(255,255,255,.18); background:rgba(255,255,255,.08)}
-    .tabs.locked{pointer-events:none; opacity:.5}
+  :root{
+    /* —— Olive + Sage (dark theme) —— */
+    --bg:    #0f1411;          /* deep green-black */
+    --card:  #121a15;          /* card panels */
+    --text:  #edf3ea;          /* main text (very light sage) */
+    --muted: #a9b5a8;          /* secondary text */
+    --brand: #7c8b4d;          /* olive */
+    --brand-2:#b7c7a6;         /* sage accent */
+    --shadow: 0 10px 25px rgba(0,0,0,.35);
+    --radius: 18px;
+  }
 
-    .hero{margin:24px 0 16px; display:grid; grid-template-columns: 1.1fr .9fr; gap:18px}
-    @media (max-width:860px){ .hero{grid-template-columns:1fr} }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    /* Prefer Century Gothic if present, else our web fonts/fallbacks */
+    font-family: "Century Gothic","DM Sans", system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    background:
+      radial-gradient(1200px 800px at 12% -10%, rgba(124,139,77,.28), transparent 60%),
+      radial-gradient(1200px 800px at 88% -10%, rgba(183,199,166,.20), transparent 60%),
+      var(--bg);
+    color:var(--text);
+  }
 
-    .card{background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.08); padding:18px; border-radius:var(--radius); box-shadow:var(--shadow)}
-    .title{font-size: clamp(24px, 4vw, 42px); margin:0 0 6px}
-    .subtitle{color:var(--muted); margin-top:0}
+  a{color:var(--brand-2)}
+  .wrap{max-width:1000px; margin:0 auto; padding:28px;}
 
-    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:12px}
-    .col-12{grid-column: span 12}
-    .col-6{grid-column: span 6}
-    @media (max-width:760px){ .col-6{grid-column: span 12} }
+  header{
+    position:sticky; top:0; z-index:10; backdrop-filter: blur(8px);
+    background: linear-gradient(180deg, rgba(15,20,17,.92), rgba(15,20,17,.65));
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
 
-    .btn{display:inline-flex; align-items:center; gap:8px; border:1px solid rgba(255,255,255,.12);
-      padding:10px 14px; border-radius:12px; background:rgba(255,255,255,.04); color:var(--text);
-      text-decoration:none; cursor:pointer; transition:.2s}
-    .btn:hover{background:rgba(255,255,255,.08)}
+  .nav{display:flex; align-items:center; gap:14px;}
+  .logo{display:flex; align-items:center; gap:10px; font-weight:700}
+  .logo-badge{
+    width:34px; height:34px; border-radius:10px; display:grid; place-items:center;
+    background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow:var(--shadow)
+  }
 
-    .pill{display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(124,156,245,.15);
-      border:1px solid rgba(124,156,245,.35); color:#cfe0ff; font-size:12px}
+  .tabs{display:flex; gap:8px; flex-wrap:wrap; margin-left:auto}
+  .tab{
+    appearance:none; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.03);
+    color:var(--text); padding:8px 12px; border-radius:12px; cursor:pointer; transition:.2s
+  }
+  .tab[aria-current="page"], .tab:hover{
+    border-color: rgba(183,199,166,.35); background: rgba(183,199,166,.10)
+  }
 
-    /* Masonry-style responsive columns */
-    .gallery{
-      column-count: 2; column-gap: 12px;
-    }
-    @media (max-width: 640px){
-      .gallery{ column-count: 1; }
-    }
-    @media (min-width: 1100px){
-      .gallery{ column-count: 3; }
-    }
+  .hero{margin:24px 0 16px; display:grid; grid-template-columns: 1.1fr .9fr; gap:18px}
+  @media (max-width:860px){ .hero{grid-template-columns:1fr} }
 
-    .gallery-item{
-      break-inside: avoid; -webkit-column-break-inside: avoid; -moz-column-break-inside: avoid;
-      margin-bottom: 12px;
-    }
-    .gallery img{
-      width: 100%; height: auto; display: block; object-fit: cover;
-      border-radius: 14px; border: 1px solid rgba(255,255,255,.08);
-      opacity: 0; transition: opacity .35s ease; /* fade-in */
-    }
-    .gallery img.is-visible{ opacity: 1; }
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); padding:18px; border-radius:var(--radius); box-shadow:var(--shadow)
+  }
 
-    footer{opacity:.7; text-align:center; padding:30px}
-    .hide{display:none}
-  </style>
+  /* Headings use a Century-Gothic look via Montserrat fallback */
+  .title,h1,h2,h3{
+    font-family:"Century Gothic","Montserrat","DM Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    letter-spacing:.2px;
+  }
+  .title{font-size: clamp(24px, 4vw, 42px); margin:0 0 6px}
+  .subtitle{color:var(--muted); margin-top:0}
+
+  .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:12px}
+  .col-12{grid-column: span 12}
+  .col-6{grid-column: span 6}
+  @media (max-width:760px){ .col-6{grid-column: span 12} }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid rgba(183,199,166,.28);
+    padding:10px 14px; border-radius:12px;
+    background:rgba(183,199,166,.10); color:var(--text);
+    text-decoration:none; cursor:pointer; transition:.2s
+  }
+  .btn:hover{ background: rgba(183,199,166,.18) }
+
+  .pill{
+    display:inline-block; padding:6px 10px; border-radius:999px;
+    background: rgba(124,139,77,.18);
+    border:1px solid rgba(124,139,77,.40);
+    color:#e7f0da; font-size:12px
+  }
+
+  /* —— Masonry gallery (responsive) —— */
+  .gallery{ column-count: 2; column-gap: 12px; }
+  @media (max-width: 640px){ .gallery{ column-count: 1; } }
+  @media (min-width: 1100px){ .gallery{ column-count: 3; } }
+
+  .gallery-item{
+    break-inside: avoid; -webkit-column-break-inside: avoid; -moz-column-break-inside: avoid;
+    margin-bottom: 12px;
+  }
+  .gallery img{
+    width: 100%; height: auto; display: block; object-fit: cover;
+    border-radius: 14px; border: 1px solid rgba(255,255,255,.08);
+  }
+/* Fade-in for gallery images */
+.gallery img{
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.gallery img.is-visible{
+  opacity: 1;
+  transform: none;
+}
+
+  footer{opacity:.7; text-align:center; padding:30px}
+  .hide{display:none}
+
+/* Dim and disable tabs while the site is locked */
+#tabs.locked .tab{
+  pointer-events: none;
+  opacity: .5;
+  filter: grayscale(.2);
+}
+  
+</style>
+
 </head>
 <body>
   <header>
@@ -137,8 +182,12 @@
           </div>
         </div>
         <div class="card">
-          <h3>What’s inside?</h3>
-          <p class="subtitle">Timeline, memories, messages, and a presents picker!</p>
+          <h3>What are you going to see here?</h3>
+          <p class="subtitle">
+            Timeline
+            memories
+            messages
+            and a presents picker!</p>
         </div>
       </div>
     </section>
@@ -171,7 +220,7 @@
     <section id="messages" class="view hide">
       <div class="card">
         <h2>Messages for Matt</h2>
-        <p class="subtitle">Notes from Lucía (and Maya 🐾)</p>
+        <p class="subtitle">Notes from us - Lucía and Maya </p>
         <div id="messageList" class="grid"></div>
       </div>
     </section>
@@ -197,7 +246,7 @@
     <section id="about" class="view hide">
       <div class="card">
         <h2>About this site</h2>
-        <p>Made with ❤️ by Lucía. Built with plain HTML, CSS & a pinch of JS. Hosted on GitHub Pages.</p>
+        <p>Made with ❤️ by Lucía. Took me longer than I expected. Built with plain HTML, CSS & a pinch of JS, apparently. Hosted on GitHub Pages.</p>
       </div>
     </section>
   </main>
@@ -291,8 +340,8 @@
 
     // ====== Messages ======
     const MESSAGES = [
-      {name:'Lucía',date:'2025-09-23',message:"I love you so much, let's make lots of new memories this year"},
-      {name:'Maya 🐾',date:'2025-09-23',message:"Woof, woof!"}
+      {name:'Lucía',date:'2025-09-23',message:"Happy birthday, my love. I’m so lucky to share all these moments with you — the little ones at home and the big adventures too. Here’s to us, to laughter, to our casita, and to everything waiting ahead"},
+      {name:'Maya 🐾',date:'2025-09-23',message:"Woof, woof! Woooooof!"}
     ];
     const escapeHTML = s => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
     document.getElementById('messageList').innerHTML = MESSAGES.map(m => `
