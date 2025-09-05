@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Happy Birthday, Matt! 🎉</title>
-  <meta name="description" content="A tiny birthday site for Matt — made with ❤️ by Lucía." />
+  <title>Happy Birthday, my love! 🎉</title>
+  <meta name="description" content="made with ❤️ by Lucía." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>">
   <style>
     :root{
@@ -94,17 +94,17 @@
       <div class="hero">
         <div class="card">
           <p class="pill">Surprise site</p>
-          <h1 class="title">Happy Birthday, Matt! 🧁</h1>
-          <p class="subtitle">A tiny corner of the web made by Lucía — memories, messages, and a little confetti.
+          <h1 class="title">Happy 28th, pretty face! 🧁</h1>
+          <p class="subtitle">for another wonderful year ahead!
           </p>
           <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
             <button class="btn" id="confettiBtn" title="Launch confetti">🎊 Launch confetti</button>
-            <a class="btn" href="#memories">📸 See memories</a>
-            <a class="btn" href="#messages">✍️ Leave a message</a>
+            <a class="btn" href="#memories">📸 To see some lovely memories</a>
+            <a class="btn" href="#messages">✍️ To read a little message </a>
           </div>
         </div>
         <div class="card">
-          <h3 style="margin:.2rem 0 6px">When’s the party?</h3>
+          <h3 style="margin:.2rem 0 6px">When’s the day?</h3>
           <p class="subtitle">Countdown to birthday:</p>
           <div id="countdown" style="font-size:28px; margin:12px 0 4px">—</div>
           <p class="subtitle" style="margin-top:6px">(Change the date in the script!)</p>
@@ -124,20 +124,24 @@
         <p class="subtitle">Milestones & mini-stories. Edit inside <code>#timeline</code>.</p>
         <div class="grid">
           <div class="col-6 card">
-            <h3>2019 — First trip to …</h3>
-            <p>Write a 2–3 sentence memory here. Keep it light; add photos in the gallery.</p>
+            <h3>2020 — First nights together…</h3>
+            <p>Not too much fun, but fun enough! </p>
           </div>
           <div class="col-6 card">
-            <h3>2022 — Big achievement</h3>
-            <p>Another little story. Swap dates/titles as you like.</p>
+            <h3>2021 — London </h3>
+            <p>Leeds was great for sure, but the city that never sleeps made us stronger </p>
           </div>
           <div class="col-6 card">
-            <h3>2024 — New beginnings</h3>
-            <p>Short note about something fun or meaningful.</p>
+            <h3>2022 — Leyton! </h3>
+            <p>After a few movings helping each other out, we then combined our Kallaxes and started to build our home. Coming back from work and seeing you really made my days! </p>
           </div>
+           <div class="col-6 card">
+            <h3>2024 — Casita </h3>
+            <p>We are not thinking of weddings yet, but definitely have commited to each other for the next... 34 years and a half? It is lovely to make the dusty casita our HOME. </p>
+           </div>   
           <div class="col-6 card">
-            <h3>2025 — Today 🎂</h3>
-            <p>Write a birthday note to Matt here.</p>
+            <h3>2025 — Maya </h3>
+            <p>Just our little love. Big responsibility, that shared with you is lighter and bring us so much joy. </p>
           </div>
         </div>
       </div>
@@ -157,38 +161,20 @@
       </div>
     </section>
 
-    <!-- MESSAGES (Guestbook via Google Form or Formspree) -->
-    <section id="messages" class="view hide">
-      <div class="card">
-        <h2 style="margin:0 0 10px">Leave Matt a Message</h2>
-        <p class="subtitle">Simplest free option: embed a Google Form or use Formspree free tier.</p>
-        <div class="grid">
-          <div class="col-6">
-            <div class="card">
-              <h3>Embedded form (replace iframe src)</h3>
-              <div style="aspect-ratio: 16/10; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:12px; overflow:hidden">
-                <!-- Replace with your Google Form embed link -->
-                <iframe title="Guestbook" src="about:blank" style="width:100%; height:100%; border:0"></iframe>
-              </div>
-              <p class="subtitle" style="margin-top:10px">Create a Google Form → Send → Embed HTML → paste here.</p>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="card">
-              <h3>Formspree (no embed)</h3>
-              <form id="fs" method="POST" action="#" onsubmit="alert('This is a demo. Replace action URL with Formspree endpoint.'); return false;">
-                <label>Name<br><input required name="name" placeholder="Your name" style="width:100%"></label>
-                <br><br>
-                <label>Message<br><textarea required name="message" rows="4" placeholder="Write a nice note…" style="width:100%"></textarea></label>
-                <br><br>
-                <button class="btn" type="submit">Send</button>
-              </form>
-              <p class="subtitle" style="margin-top:10px">Free: create a Formspree project → copy endpoint → replace the <code>action</code> URL above.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    //
+const MESSAGES = [
+  { 
+    name: 'Lucía', 
+    date: '2025-09-3', 
+    message: 'I love you so much, let's make lots of new memories this year' 
+  },
+  { 
+    name: 'Maya 🐾', 
+    date: '2025-09-23', 
+    message: 'Woof, woof!' 
+  }
+]
+
 
     <!-- ABOUT -->
     <section id="about" class="view hide">
@@ -222,7 +208,6 @@
     window.addEventListener('hashchange', () => showView(location.hash))
     showView(location.hash)
 
-    // ======= Countdown (set your date) =======
     const deadline = new Date('2025-09-23T00:00:00'); // 
     const el = document.getElementById('countdown')
     function tick(){
@@ -260,7 +245,7 @@
       }
     })
 
-    // Year
+    // 2025
     document.getElementById('year').textContent = new Date().getFullYear()
   </script>
 </body>
