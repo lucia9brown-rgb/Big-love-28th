@@ -97,6 +97,20 @@
     border:1px solid rgba(124,139,77,.40);
     color:#e7f0da; font-size:12px
   }
+    
+/* Make native controls use the site font & colors */
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* Neutralize default button look across browsers */
+.btn {
+  -webkit-appearance: none;
+  appearance: none;
+  font-weight: 600;         /* gives the button a nice emphasis */
+  letter-spacing: .2px;
+}
 
   /* —— Masonry gallery (responsive) —— */
   .gallery{ column-count: 2; column-gap: 12px; }
@@ -131,6 +145,84 @@
   opacity: .5;
   filter: grayscale(.2);
 }
+    /* ——— Micro animations for the Presents button ——— */
+.btn.fancy {
+  position: relative;
+  overflow: hidden;               /* needed for ripple */
+  transform: translateZ(0);       /* enable GPU */
+  transition: transform .08s ease;
+}
+
+/* soft pulse to invite a click */
+.btn.fancy.pulse {
+  animation: btn-breathe 2.2s ease-in-out infinite;
+}
+
+@keyframes btn-breathe {
+  0%, 100% { box-shadow: 0 0 0 rgba(183,199,166,0); }
+  50%      { box-shadow: 0 0 0 6px rgba(183,199,166,.12); }
+}
+
+/* tiny tilt on hover */
+.btn.fancy:hover {
+  transform: translateY(-1px) rotate(-0.3deg);
+}
+
+/* pop on click */
+.btn.fancy:active {
+  transform: scale(0.98);
+}
+
+/* ripple element */
+.btn.fancy .ripple {
+  position: absolute;
+  border-radius: 999px;
+  inset: 0;
+  margin: auto;
+  width: 6px;
+  height: 6px;
+  opacity: 0;
+  background: radial-gradient(circle, rgba(183,199,166,.35), rgba(183,199,166,0) 60%);
+  transform: scale(1);
+  pointer-events: none;
+  animation: ripple-pop .5s ease-out;
+}
+
+@keyframes ripple-pop {
+  from { opacity: .35; transform: scale(1); }
+  to   { opacity: 0;   transform: scale(18); }
+}
+
+/* ——— Quiz styles ——— */
+.quiz-card{
+  grid-column: span 12;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--radius);
+  padding: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+  box-shadow: var(--shadow);
+  margin-bottom: 10px;
+}
+.quiz-q{ margin: 0 0 8px; font-weight: 600; }
+.quiz-options{ display: grid; gap: 8px; }
+.quiz-option{
+  display: flex; align-items: center; justify-content: space-between;
+  border: 1px solid rgba(183,199,166,.28);
+  background: rgba(183,199,166,.08);
+  padding: 10px 12px; border-radius: 12px; cursor: pointer;
+  transition: .15s;
+}
+.quiz-option:hover{ background: rgba(183,199,166,.14); }
+.quiz-option.correct{
+  border-color: rgba(112,225,210,.5);
+  background: rgba(112,225,210,.12);
+}
+.quiz-option.wrong{
+  border-color: rgba(255,64,64,.4);
+  background: rgba(255,64,64,.08);
+}
+.quiz-explain{ margin: 8px 0 0; color: var(--muted); font-size: 0.95em; }
+
   
 </style>
 
@@ -147,6 +239,7 @@
         <a class="tab" href="#timeline">Timeline</a>
         <a class="tab" href="#memories">Memories</a>
         <a class="tab" href="#messages">Messages</a>
+        <a class="tab" href="#facts">Quiz</a>
         <a class="tab" href="#presents">Presents</a>
         <a class="tab" href="#about">About</a>
       </nav>
@@ -176,7 +269,7 @@
           <h1 class="title">Happy 28th, pretty face! 🧁</h1>
           <p class="subtitle">Here’s to another wonderful year ahead!</p>
           <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
-            <button class="btn" id="confettiBtn">🎊 Launch confetti</button>
+            <button class="btn fancy pulse" id="confettiBtn">🎊 Launch confetti</button>
             <a class="btn" href="#memories"> See some lovely memories</a>
             <a class="btn" href="#messages"> We just want to say... </a>
           </div>
@@ -184,7 +277,7 @@
         <div class="card">
           <h3>What are you going to see here?</h3>
           <p class="subtitle">
-            Timeline, memories, messages and a presents picker!</p>
+            Timeline, memories, messages, random quiz and a presents picker!</p>
         </div>
       </div>
     </section>
@@ -216,7 +309,7 @@
     <!-- MESSAGES -->
     <section id="messages" class="view hide">
       <div class="card">
-        <h2>Messages for Matt</h2>
+        <h2>Messages for you </h2>
         <p class="subtitle">Notes from us - Lucía and Maya </p>
         <div id="messageList" class="grid"></div>
       </div>
@@ -228,7 +321,7 @@
         <h2>Presents </h2>
         <p class="subtitle">It’s always hard to choose which present to open first, so this time we are not deciding it! Each gift is labeled 1–15. Press the button to get the next number </p>
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin:12px 0">
-          <button class="btn" id="drawBtn">🎲 Pick the next number</button>
+          <button class="btn fancy pulse" id="drawBtn">🎲 Pick the next number</button>
           <button class="btn" id="resetBtn" title="Only for Lucía">↺ Reset (for Lucía)</button>
         </div>
         <div class="card" style="margin-top:10px">
@@ -238,6 +331,21 @@
         </div>
       </div>
     </section>
+<!-- QUIZ -->
+<section id="facts" class="view hide">
+  <div class="card">
+    <h2>Random quiz</h2>
+    <p class="subtitle">10 quick questions. Tap an answer to reveal if you are right!</p>
+
+    <div id="quizWrap" class="grid"></div>
+
+    <div class="card" style="margin-top:12px; display:flex; gap:12px; align-items:center;">
+      <strong>Score:</strong>
+      <span id="quizScore" class="pill">0 / 0</span>
+      <button id="quizReset" class="btn">↺ Reset quiz</button>
+    </div>
+  </div>
+</section>
 
     <!-- ABOUT -->
     <section id="about" class="view hide">
@@ -456,6 +564,141 @@ const UNLOCK_AT = new Date('2025-09-23T07:00:00Z');
 
     // Initial render
     renderPresentsState(null);
+<script>
+// ——— Random facts quiz (age & numbers focused, no explanations) ———
+const QUIZ = [
+  {
+    q: "Roughly what fraction of a human life is spent asleep?",
+    options: ["About one quarter", "About one third", "About one half"],
+    answer: 1
+  },
+  {
+    q: "Average adult heartbeats per day?",
+    options: ["~10,000", "~100,000", "~1,000,000"],
+    answer: 1
+  },
+  {
+    q: "How many weeks are in 28 years (52 weeks/year)?",
+    options: ["1400", "1456", "1500"],
+    answer: 1
+  },
+  {
+    q: "Approx. life expectancy in England & Wales around 1850?",
+    options: ["~30 years", "~40 years", "~55 years"],
+    answer: 1
+  },
+  {
+    q: "At age 2, a child is roughly what percent of adult height?",
+    options: ["~40%", "~50%", "~60%"],
+    answer: 1
+  },
+  {
+    q: "Oldest confirmed human age ever recorded?",
+    options: ["116 years", "122 years", "130 years"],
+    answer: 1
+  },
+  {
+    q: "Oldest verified person from Spain?",
+    options: ["María Branyas Morera", "Saturnino de la Fuente García", "Ana María Vela Rubio"],
+    answer: 0
+  },
+  {
+    q: "Oldest verified person from the UK?",
+    options: ["Charlotte Hughes", "Bessie Camm", "Ethel May Caterham"],
+    answer: 0
+  },
+  {
+    q: "How many leap years are there in a typical 28-year span?",
+    options: ["6", "7", "8"],
+    answer: 1
+  },
+  {
+    q: "How many minutes are there in a day?",
+    options: ["1,140", "1,440", "10,080"],
+    answer: 1
+  }
+];
+
+(function initQuiz(){
+  const wrap   = document.getElementById('quizWrap');
+  const scoreEl= document.getElementById('quizScore');
+  const reset  = document.getElementById('quizReset');
+  if(!wrap || !scoreEl) return;
+
+  let total = 0, correct = 0;
+
+  function updateScore(){ scoreEl.textContent = `${correct} / ${total}`; }
+
+  function render(){
+    wrap.innerHTML = '';
+    total = QUIZ.length;
+    correct = 0;
+    updateScore();
+
+    QUIZ.forEach((item, idx) => {
+      const card = document.createElement('div');
+      card.className = 'quiz-card';
+
+      const q = document.createElement('p');
+      q.className = 'quiz-q';
+      q.textContent = `${idx+1}. ${item.q}`;
+
+      const opts = document.createElement('div');
+      opts.className = 'quiz-options';
+
+      let chosen = false;
+
+      item.options.forEach((optText, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'quiz-option';
+        btn.textContent = optText;
+
+        btn.addEventListener('click', () => {
+          if (chosen) return;    // one guess
+          chosen = true;
+
+          const kids = Array.from(opts.children);
+          kids.forEach((b, j) => {
+            if (j === item.answer) b.classList.add('correct');
+            else if (j === i)      b.classList.add('wrong');
+            b.disabled = true;
+          });
+
+          if (i === item.answer) correct++;
+          updateScore();
+        });
+
+        opts.appendChild(btn);
+      });
+
+      card.appendChild(q);
+      card.appendChild(opts);
+      wrap.appendChild(card);
+    });
+  }
+
+  reset?.addEventListener('click', render);
+  render();
+})();
+
+// ——— Optional: ripple effect on the “Pick the next number” button ———
+(function fancyButton(){
+  const btn = document.getElementById('drawBtn');
+  if(!btn) return;
+
+  btn.addEventListener('click', (e) => {
+    // stop pulsing after first click
+    btn.classList.remove('pulse');
+
+    // ripple
+    const r = document.createElement('span');
+    r.className = 'ripple';
+    btn.appendChild(r);
+    r.addEventListener('animationend', () => r.remove());
+  });
+})();
+
 
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
