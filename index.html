@@ -184,10 +184,7 @@
         <div class="card">
           <h3>What are you going to see here?</h3>
           <p class="subtitle">
-            Timeline
-            memories
-            messages
-            and a presents picker!</p>
+            Timeline, memories, messages and a presents picker!</p>
         </div>
       </div>
     </section>
@@ -228,8 +225,8 @@
     <!-- PRESENTS -->
     <section id="presents" class="view hide">
       <div class="card">
-        <h2>Presents 🎁</h2>
-        <p class="subtitle">It’s always hard to choose which present to open first, so let fate decide! Each gift is labeled 1–15. Press the button to get the next number </p>
+        <h2>Presents </h2>
+        <p class="subtitle">It’s always hard to choose which present to open first, so this time we are not deciding it! Each gift is labeled 1–15. Press the button to get the next number </p>
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin:12px 0">
           <button class="btn" id="drawBtn">🎲 Pick the next number</button>
           <button class="btn" id="resetBtn" title="Only for Lucía">↺ Reset (for Lucía)</button>
@@ -246,7 +243,7 @@
     <section id="about" class="view hide">
       <div class="card">
         <h2>About this site</h2>
-        <p>Made with ❤️ by Lucía. Took me longer than I expected. Built with plain HTML, CSS & a pinch of JS, apparently. Hosted on GitHub Pages.</p>
+        <p>Made with ❤️ by Lucía. Built with plain HTML, CSS & a pinch of JS, apparently. Hosted on GitHub Pages as you can see. Took me longer than I expected — totally worth it.</p>
       </div>
     </section>
   </main>
@@ -256,8 +253,9 @@
   </footer>
 
   <script>
-    // ====== CONFIG ======
-    const UNLOCK_AT = new Date('2025-09-23T08:00:00'); // local time of the viewer
+    // 07:00 UK time if BST is in effect = 06:00 UTC example
+const UNLOCK_AT = new Date('2025-09-23T07:00:00Z'); 
+
 
     // ====== Tiny router (hash-based) ======
     const tabs = Array.from(document.querySelectorAll('.tab'));
