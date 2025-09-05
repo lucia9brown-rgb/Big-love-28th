@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,7 +12,7 @@
       --card: #131b2d;
       --text: #e6edf7;
       --muted: #9fb0d0;
-      --brand: #7c9cf5; /* change this to tweak theme */
+      --brand: #7c9cf5;
       --brand-2:#70e1d2;
       --shadow: 0 10px 25px rgba(0,0,0,.35);
       --radius: 18px;
@@ -64,8 +63,28 @@
     .pill{display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(124,156,245,.15);
       border:1px solid rgba(124,156,245,.35); color:#cfe0ff; font-size:12px}
 
-    .gallery{display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:10px}
-    .gallery img{width:100%; height:180px; object-fit:cover; border-radius:14px; border:1px solid rgba(255,255,255,.08)}
+    /* Masonry-style columns */
+  /* Masonry-style responsive columns */
+.gallery{
+  column-count: 2;      /* default: tablets / laptops */
+  column-gap: 12px;
+}
+@media (max-width: 640px){
+  .gallery{ column-count: 1; }  /* phones */
+}
+@media (min-width: 1100px){
+  .gallery{ column-count: 3; }  /* wide screens / desktops */
+}
+
+
+    .gallery-item{
+      break-inside: avoid; -webkit-column-break-inside: avoid; -moz-column-break-inside: avoid;
+      margin-bottom: 12px;
+    }
+    .gallery img{
+      width: 100%; height: auto; display: block; object-fit: cover;
+      border-radius: 14px; border: 1px solid rgba(255,255,255,.08);
+    }
 
     footer{opacity:.7; text-align:center; padding:30px}
     .hide{display:none}
@@ -89,30 +108,24 @@
   </header>
 
   <main class="wrap">
-    <!-- HERO / HOME -->
+    <!-- HOME -->
     <section id="home" class="view">
       <div class="hero">
         <div class="card">
           <p class="pill">Surprise site</p>
           <h1 class="title">Happy 28th, pretty face! 🧁</h1>
-          <p class="subtitle">Here’s to another wonderful year ahead!
-          </p>
+          <p class="subtitle">Here’s to another wonderful year ahead!</p>
           <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
-            <button class="btn" id="confettiBtn" title="Launch confetti">🎊 Launch confetti</button>
-            <a class="btn" href="#memories">📸 To see some lovely memories</a>
-            <a class="btn" href="#messages">✍️ To read a little message </a>
+            <button class="btn" id="confettiBtn">🎊 Launch confetti</button>
+            <a class="btn" href="#memories">📸 See some lovely memories</a>
+            <a class="btn" href="#messages">✍️ Read a little message</a>
           </div>
         </div>
         <div class="card">
-          <h3 style="margin:.2rem 0 6px">When’s the day?</h3>
+          <h3>When’s the day?</h3>
           <p class="subtitle">Countdown to birthday:</p>
           <div id="countdown" style="font-size:28px; margin:12px 0 4px">—</div>
-          <p class="subtitle" style="margin-top:6px">(Change the date in the script!)</p>
-          <hr style="border:none; border-top:1px solid rgba(255,255,255,.08); margin:14px 0">
-          <p style="margin:0">Quick links: 
-            <a href="#timeline">Timeline</a> • 
-            <a href="#about">About</a>
-          </p>
+          <p class="subtitle">(Change the date in the script!)</p>
         </div>
       </div>
     </section>
@@ -120,68 +133,40 @@
     <!-- TIMELINE -->
     <section id="timeline" class="view hide">
       <div class="card">
-        <h2 style="margin:0 0 10px">Timeline</h2>
-        <p class="subtitle">Milestones & mini-stories. Edit inside <code>#timeline</code>.</p>
+        <h2>Timeline</h2>
         <div class="grid">
-          <div class="col-6 card">
-            <h3>2020 — First nights together…</h3>
-            <p>Not too much fun, but fun enough! </p>
-          </div>
-          <div class="col-6 card">
-            <h3>2021 — London </h3>
-            <p>Leeds was great for sure, but the city that never sleeps made us stronger </p>
-          </div>
-          <div class="col-6 card">
-            <h3>2022 — Leyton! </h3>
-            <p>After a few movings helping each other out, we then combined our Kallaxes and started to build our home. Coming back from work and seeing you really made my days! </p>
-          </div>
-           <div class="col-6 card">
-            <h3>2024 — Casita </h3>
-            <p>We are not thinking of weddings yet, but definitely have commited to each other for the next... 34 years and a half? It is lovely to make the dusty casita our HOME. </p>
-           </div>   
-          <div class="col-6 card">
-            <h3>2025 — Maya </h3>
-            <p>Just our little love. Big responsibility, that shared with you is lighter and bring us so much joy. </p>
-          </div>
+          <div class="col-6 card"><h3>2020 — First nights together…</h3><p>Not too much fun, but fun enough!</p></div>
+          <div class="col-6 card"><h3>2021 — London</h3><p>Leeds was great, but London made us stronger.</p></div>
+          <div class="col-6 card"><h3>2022 — Leyton!</h3><p>We combined our Kallaxes and made a home ❤️</p></div>
+          <div class="col-6 card"><h3>2024 — Casita</h3><p>Committed for the next 34.5 years 😉</p></div>
+          <div class="col-6 card"><h3>2025 — Maya</h3><p>Our little love, responsibility, and joy 🐶</p></div>
         </div>
       </div>
     </section>
 
-    <!-- MEMORIES (GALLERY) -->
+    <!-- MEMORIES -->
     <section id="memories" class="view hide">
       <div class="card">
-        <h2 style="margin:0 0 10px">Memories</h2>
-        <p class="subtitle">Drop your JPG/PNG files in the repo’s <code>/images</code> folder and update the <code>src</code> paths below.</p>
-        <div class="gallery">
-          <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=800&auto=format&fit=crop" alt="Memory 1">
-          <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?q=80&w=800&auto=format&fit=crop" alt="Memory 2">
-          <img src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?q=80&w=800&auto=format&fit=crop" alt="Memory 3">
-          <img src="https://images.unsplash.com/photo-1487412720507-3d89d89cc466?q=80&w=800&auto=format&fit=crop" alt="Memory 4">
-        </div>
+        <h2>Memories</h2>
+        <div class="gallery" id="gallery"></div>
+        <div id="gallery-sentinel" class="subtitle" style="text-align:center;margin-top:10px;">Loading more…</div>
       </div>
     </section>
 
     <!-- MESSAGES -->
-<section id="messages" class="view hide">
-  <div class="card">
-    <h2 style="margin:0 0 10px">Messages for Matt</h2>
-    <p class="subtitle">Notes added by Lucía (and Maya 🐾)</p>
-    <div id="messageList" class="grid"></div>
-  </div>
-</section>
-
+    <section id="messages" class="view hide">
+      <div class="card">
+        <h2>Messages for Matt</h2>
+        <p class="subtitle">Notes from Lucía (and Maya 🐾)</p>
+        <div id="messageList" class="grid"></div>
+      </div>
+    </section>
 
     <!-- ABOUT -->
     <section id="about" class="view hide">
       <div class="card">
-        <h2 style="margin:0 0 10px">About this site</h2>
-        <p>This tiny site was hand‑made for Matt’s birthday by Lucía. Built with plain HTML, CSS and a pinch of JavaScript. No frameworks, no build step, deploy anywhere for free.</p>
-        <ul>
-          <li>Icons: native emoji (free and universal)</li>
-          <li>Images: try <a href="https://unsplash.com/" target="_blank" rel="noreferrer">Unsplash</a>, <a href="https://www.pexels.com/" target="_blank" rel="noreferrer">Pexels</a></li>
-          <li>Fonts: system font stack (fast & free). Swap to <a href="https://fonts.google.com/" target="_blank" rel="noreferrer">Google Fonts</a> if you like.</li>
-          <li>Hosting: <a href="https://pages.github.com/" target="_blank" rel="noreferrer">GitHub Pages</a> / <a href="https://www.netlify.com/" target="_blank" rel="noreferrer">Netlify</a> / <a href="https://pages.cloudflare.com/" target="_blank" rel="noreferrer">Cloudflare Pages</a> — all have free tiers.</li>
-        </ul>
+        <h2>About this site</h2>
+        <p>Made with ❤️ by Lucía. Built with plain HTML, CSS & a pinch of JS. Hosted on GitHub Pages.</p>
       </div>
     </section>
   </main>
@@ -191,85 +176,34 @@
   </footer>
 
   <script>
-    // ======= Tiny router (hash-based) =======
-    const tabs = Array.from(document.querySelectorAll('.tab'))
-    const views = Array.from(document.querySelectorAll('.view'))
-    function showView(hash){
-      const id = (hash || location.hash || '#home').replace('#','')
-      views.forEach(v => v.classList.toggle('hide', v.id !== id))
-      tabs.forEach(t => t.setAttribute('aria-current', t.getAttribute('href') === '#' + id ? 'page' : 'false'))
-      if(!location.hash) history.replaceState(null, '', '#home')
-    }
-    window.addEventListener('hashchange', () => showView(location.hash))
-    showView(location.hash)
+    // Router
+    const tabs=document.querySelectorAll('.tab'),views=document.querySelectorAll('.view');
+    function showView(hash){const id=(hash||location.hash||'#home').replace('#','');views.forEach(v=>v.classList.toggle('hide',v.id!==id));tabs.forEach(t=>t.setAttribute('aria-current',t.getAttribute('href')==='#'+id?'page':'false'));if(!location.hash)history.replaceState(null,'','#home');}
+    window.addEventListener('hashchange',()=>showView(location.hash));showView(location.hash);
 
-    const deadline = new Date('2025-09-23T00:00:00'); // 
-    const el = document.getElementById('countdown')
-    function tick(){
-      const now = new Date();
-      const diff = deadline - now;
-      if(diff <= 0){ el.textContent = 'It\'s today! 🎂'; return }
-      const d = Math.floor(diff/86400000)
-      const h = Math.floor((diff%86400000)/3600000)
-      const m = Math.floor((diff%3600000)/60000)
-      el.textContent = `${d}d ${h}h ${m}m`
-    }
-    tick(); setInterval(tick, 30000)
+    // Countdown
+    const deadline=new Date('2025-09-23T00:00:00');const el=document.getElementById('countdown');
+    function tick(){const now=new Date(),diff=deadline-now;if(diff<=0){el.textContent="It's today! 🎂";return;}const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000);el.textContent=`${d}d ${h}h ${m}m`;}
+    tick();setInterval(tick,30000);
 
-    // ======= Confetti (super-light inline) =======
-    const btn = document.getElementById('confettiBtn')
-    btn?.addEventListener('click', () => {
-      // Minimal confetti: create floating emojis
-      const n = 40;
-      for(let i=0;i<n;i++){
-        const s = document.createElement('div');
-        s.textContent = ['🎈','🎊','🎉','✨'][Math.floor(Math.random()*4)]
-        s.style.position='fixed';
-        s.style.left = (Math.random()*100)+'vw';
-        s.style.top='-10vh';
-        s.style.fontSize=(16+Math.random()*24)+'px';
-        s.style.transition='transform 2.2s ease-out, opacity 2.2s';
-        s.style.willChange='transform, opacity';
-        s.style.zIndex=9999;
-        document.body.appendChild(s);
-        requestAnimationFrame(()=>{
-          s.style.transform=`translateY(${110+Math.random()*20}vh) rotate(${(Math.random()*720-360)}deg)`;
-          s.style.opacity='0';
-        })
-        setTimeout(()=>s.remove(), 2500)
-      }
-    })
-    // ======= Static message wall (edit MESSAGES below) =======
-const MESSAGES = [
-  { name: 'Lucía', date: '2025-09-23', message: 'I love you so much, let's make lots of new memories this year' },
-  { name: 'Maya', date: '2025-09-23', message: 'Woof, woof!' }
-];
+    // Confetti
+    document.getElementById('confettiBtn').addEventListener('click',()=>{for(let i=0;i<40;i++){const s=document.createElement('div');s.textContent=['🎈','🎊','🎉','✨'][Math.floor(Math.random()*4)];Object.assign(s.style,{position:'fixed',left:(Math.random()*100)+'vw',top:'-10vh',fontSize:(16+Math.random()*24)+'px',transition:'transform 2.2s ease-out,opacity 2.2s',zIndex:9999});document.body.appendChild(s);requestAnimationFrame(()=>{s.style.transform=`translateY(110vh) rotate(${Math.random()*720-360}deg)`;s.style.opacity=0;});setTimeout(()=>s.remove(),2500);}});
 
-const escapeHTML = (s) =>
-  String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    // Messages
+    const MESSAGES=[{name:'Lucía',date:'2025-09-23',message:"I love you so much, let's make lots of new memories this year"},{name:'Maya 🐾',date:'2025-09-23',message:"Woof, woof!"}];
+    const escapeHTML=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    document.getElementById('messageList').innerHTML=MESSAGES.map(m=>`<div class="col-6"><div class="card"><div style="display:flex;justify-content:space-between"><strong>${escapeHTML(m.name)}</strong><span class="subtitle">${escapeHTML(m.date)}</span></div><p>${escapeHTML(m.message)}</p></div></div>`).join('');
 
-function renderMessages() {
-  const list = document.getElementById('messageList');
-  if (!list) return;
-  list.innerHTML = MESSAGES.map(m => `
-    <div class="col-6">
-      <div class="card">
-        <div style="display:flex; justify-content:space-between; gap:10px; align-items:center">
-          <strong>${escapeHTML(m.name)}</strong>
-          <span class="subtitle">${escapeHTML(m.date)}</span>
-        </div>
-        <p style="margin:.5rem 0 0">
-          ${escapeHTML(m.message).replace(/\n/g, '<br>')}
-        </p>
-      </div>
-    </div>
-  `).join('');
-}
-renderMessages();
+    // Gallery with 60 photos
+    const GALLERY_IMAGES=[...Array(60).keys()].map(i=>`images/matt_${String(i+1).padStart(2,'0')}.jpg`);
+    const BATCH_SIZE=10;let galleryIndex=0,observer;
+    function renderNextBatch(){const gallery=document.getElementById('gallery');const slice=GALLERY_IMAGES.slice(galleryIndex,galleryIndex+BATCH_SIZE);slice.forEach((src,i)=>{const wrap=document.createElement('div');wrap.className='gallery-item';const img=document.createElement('img');img.src=src;img.alt='Memory '+(galleryIndex+i+1);img.loading='lazy';wrap.appendChild(img);gallery.appendChild(wrap);});galleryIndex+=slice.length;if(galleryIndex>=GALLERY_IMAGES.length){document.getElementById('gallery-sentinel').style.display='none';if(observer)observer.disconnect();}}
+    renderNextBatch();
+    observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)renderNextBatch();});},{rootMargin:'400px 0px'});
+    observer.observe(document.getElementById('gallery-sentinel'));
 
-
-    // Year in footer
-    document.getElementById('year').textContent = new Date().getFullYear()
+    // Footer year
+    document.getElementById('year').textContent=new Date().getFullYear();
   </script>
 </body>
 </html>
