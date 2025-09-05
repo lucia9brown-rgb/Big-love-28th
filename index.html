@@ -41,6 +41,7 @@
     .tab{appearance:none; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.03);
       color:var(--text); padding:8px 12px; border-radius:12px; cursor:pointer; transition:.2s}
     .tab[aria-current="page"], .tab:hover{border-color:rgba(255,255,255,.18); background:rgba(255,255,255,.08)}
+    .tabs.locked{pointer-events:none; opacity:.5}
 
     .hero{margin:24px 0 16px; display:grid; grid-template-columns: 1.1fr .9fr; gap:18px}
     @media (max-width:860px){ .hero{grid-template-columns:1fr} }
@@ -63,19 +64,16 @@
     .pill{display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(124,156,245,.15);
       border:1px solid rgba(124,156,245,.35); color:#cfe0ff; font-size:12px}
 
-    /* Masonry-style columns */
-  /* Masonry-style responsive columns */
-.gallery{
-  column-count: 2;      /* default: tablets / laptops */
-  column-gap: 12px;
-}
-@media (max-width: 640px){
-  .gallery{ column-count: 1; }  /* phones */
-}
-@media (min-width: 1100px){
-  .gallery{ column-count: 3; }  /* wide screens / desktops */
-}
-
+    /* Masonry-style responsive columns */
+    .gallery{
+      column-count: 2; column-gap: 12px;
+    }
+    @media (max-width: 640px){
+      .gallery{ column-count: 1; }
+    }
+    @media (min-width: 1100px){
+      .gallery{ column-count: 3; }
+    }
 
     .gallery-item{
       break-inside: avoid; -webkit-column-break-inside: avoid; -moz-column-break-inside: avoid;
@@ -84,7 +82,9 @@
     .gallery img{
       width: 100%; height: auto; display: block; object-fit: cover;
       border-radius: 14px; border: 1px solid rgba(255,255,255,.08);
+      opacity: 0; transition: opacity .35s ease; /* fade-in */
     }
+    .gallery img.is-visible{ opacity: 1; }
 
     footer{opacity:.7; text-align:center; padding:30px}
     .hide{display:none}
@@ -97,19 +97,34 @@
         <div class="logo-badge">🎉</div>
         <div>Matt’s <span style="color:var(--brand)">Birthday</span></div>
       </div>
-      <nav class="tabs" aria-label="Main">
+      <nav class="tabs" aria-label="Main" id="tabs">
         <a class="tab" href="#home">Home</a>
         <a class="tab" href="#timeline">Timeline</a>
         <a class="tab" href="#memories">Memories</a>
         <a class="tab" href="#messages">Messages</a>
+        <a class="tab" href="#presents">Presents</a>
         <a class="tab" href="#about">About</a>
       </nav>
     </div>
   </header>
 
   <main class="wrap">
+    <!-- BIRTHDAY GATE (shown before the date) -->
+    <section id="gate" class="view">
+      <div class="card">
+        <p class="pill">Open on the 23rd! </p>
+        <h1 class="title" style="margin-top:6px">Not yet… but almost!</h1>
+        <p class="subtitle">Come back on <strong>23rd September</strong> to see your surprise site.</p>
+        <div class="card" style="margin-top:14px">
+          <h3 style="margin:.2rem 0 6px">Countdown</h3>
+          <div id="gateCountdown" style="font-size:28px; margin:12px 0 4px">—</div>
+          <p class="subtitle" style="margin-top:6px">This page will unlock automatically.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- HOME -->
-    <section id="home" class="view">
+    <section id="home" class="view hide">
       <div class="hero">
         <div class="card">
           <p class="pill">Surprise site</p>
@@ -117,15 +132,13 @@
           <p class="subtitle">Here’s to another wonderful year ahead!</p>
           <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
             <button class="btn" id="confettiBtn">🎊 Launch confetti</button>
-            <a class="btn" href="#memories">📸 See some lovely memories</a>
-            <a class="btn" href="#messages">✍️ Read a little message</a>
+            <a class="btn" href="#memories"> See some lovely memories</a>
+            <a class="btn" href="#messages"> We just want to say... </a>
           </div>
         </div>
         <div class="card">
-          <h3>When’s the day?</h3>
-          <p class="subtitle">Countdown to birthday:</p>
-          <div id="countdown" style="font-size:28px; margin:12px 0 4px">—</div>
-          <p class="subtitle">(Change the date in the script!)</p>
+          <h3>What’s inside?</h3>
+          <p class="subtitle">Timeline, memories, messages, and a presents picker!</p>
         </div>
       </div>
     </section>
@@ -138,8 +151,9 @@
           <div class="col-6 card"><h3>2020 — First nights together…</h3><p>Not too much fun, but fun enough!</p></div>
           <div class="col-6 card"><h3>2021 — London</h3><p>Leeds was great, but London made us stronger.</p></div>
           <div class="col-6 card"><h3>2022 — Leyton!</h3><p>We combined our Kallaxes and made a home ❤️</p></div>
-          <div class="col-6 card"><h3>2024 — Casita</h3><p>Committed for the next 34.5 years 😉</p></div>
-          <div class="col-6 card"><h3>2025 — Maya</h3><p>Our little love, responsibility, and joy 🐶</p></div>
+          <div class="col-6 card"><h3>2023 — Lots of memories!</h3><p>We kept exploring and making the most of our days</p></div>
+          <div class="col-6 card"><h3>2024 — Casita</h3><p>Committed for the next 34.5 years! </p></div>
+          <div class="col-6 card"><h3>2025 — Maya</h3><p>Our little love, responsibility, and joy </p></div>
         </div>
       </div>
     </section>
@@ -162,6 +176,23 @@
       </div>
     </section>
 
+    <!-- PRESENTS -->
+    <section id="presents" class="view hide">
+      <div class="card">
+        <h2>Presents 🎁</h2>
+        <p class="subtitle">It’s always hard to choose which present to open first, so let fate decide! Each gift is labeled 1–15. Press the button to get the next number </p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin:12px 0">
+          <button class="btn" id="drawBtn">🎲 Pick the next number</button>
+          <button class="btn" id="resetBtn" title="Only for Lucía">↺ Reset (for Lucía)</button>
+        </div>
+        <div class="card" style="margin-top:10px">
+          <div><strong>Next number:</strong> <span id="currentPick" class="pill">—</span></div>
+          <div style="margin-top:8px"><strong>Already opened:</strong> <span id="openedList" class="subtitle">—</span></div>
+          <div style="margin-top:8px"><strong>Remaining:</strong> <span id="remainingCount" class="subtitle">15</span></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ABOUT -->
     <section id="about" class="view hide">
       <div class="card">
@@ -176,34 +207,202 @@
   </footer>
 
   <script>
-    // Router
-    const tabs=document.querySelectorAll('.tab'),views=document.querySelectorAll('.view');
-    function showView(hash){const id=(hash||location.hash||'#home').replace('#','');views.forEach(v=>v.classList.toggle('hide',v.id!==id));tabs.forEach(t=>t.setAttribute('aria-current',t.getAttribute('href')==='#'+id?'page':'false'));if(!location.hash)history.replaceState(null,'','#home');}
-    window.addEventListener('hashchange',()=>showView(location.hash));showView(location.hash);
+    // ====== CONFIG ======
+    const UNLOCK_AT = new Date('2025-09-23T08:00:00'); // local time of the viewer
 
-    // Countdown
-    const deadline=new Date('2025-09-23T00:00:00');const el=document.getElementById('countdown');
-    function tick(){const now=new Date(),diff=deadline-now;if(diff<=0){el.textContent="It's today! 🎂";return;}const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000);el.textContent=`${d}d ${h}h ${m}m`;}
-    tick();setInterval(tick,30000);
+    // ====== Tiny router (hash-based) ======
+    const tabs = Array.from(document.querySelectorAll('.tab'));
+    const views = Array.from(document.querySelectorAll('.view'));
+    const tabsEl = document.getElementById('tabs');
 
-    // Confetti
-    document.getElementById('confettiBtn').addEventListener('click',()=>{for(let i=0;i<40;i++){const s=document.createElement('div');s.textContent=['🎈','🎊','🎉','✨'][Math.floor(Math.random()*4)];Object.assign(s.style,{position:'fixed',left:(Math.random()*100)+'vw',top:'-10vh',fontSize:(16+Math.random()*24)+'px',transition:'transform 2.2s ease-out,opacity 2.2s',zIndex:9999});document.body.appendChild(s);requestAnimationFrame(()=>{s.style.transform=`translateY(110vh) rotate(${Math.random()*720-360}deg)`;s.style.opacity=0;});setTimeout(()=>s.remove(),2500);}});
+    function showView(hash){
+      const id = (hash || location.hash || '#home').replace('#','');
+      views.forEach(v => v.classList.toggle('hide', v.id !== id));
+      tabs.forEach(t => t.setAttribute('aria-current', t.getAttribute('href') === '#' + id ? 'page' : 'false'));
+      if(!location.hash) history.replaceState(null, '', '#home');
+    }
 
-    // Messages
-    const MESSAGES=[{name:'Lucía',date:'2025-09-23',message:"I love you so much, let's make lots of new memories this year"},{name:'Maya 🐾',date:'2025-09-23',message:"Woof, woof!"}];
-    const escapeHTML=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-    document.getElementById('messageList').innerHTML=MESSAGES.map(m=>`<div class="col-6"><div class="card"><div style="display:flex;justify-content:space-between"><strong>${escapeHTML(m.name)}</strong><span class="subtitle">${escapeHTML(m.date)}</span></div><p>${escapeHTML(m.message)}</p></div></div>`).join('');
+    function isLocked(){
+      return new Date() < UNLOCK_AT;
+    }
 
-    // Gallery with 60 photos
-    const GALLERY_IMAGES=[...Array(60).keys()].map(i=>`images/matt_${String(i+1).padStart(2,'0')}.jpg`);
-    const BATCH_SIZE=10;let galleryIndex=0,observer;
-    function renderNextBatch(){const gallery=document.getElementById('gallery');const slice=GALLERY_IMAGES.slice(galleryIndex,galleryIndex+BATCH_SIZE);slice.forEach((src,i)=>{const wrap=document.createElement('div');wrap.className='gallery-item';const img=document.createElement('img');img.src=src;img.alt='Memory '+(galleryIndex+i+1);img.loading='lazy';wrap.appendChild(img);gallery.appendChild(wrap);});galleryIndex+=slice.length;if(galleryIndex>=GALLERY_IMAGES.length){document.getElementById('gallery-sentinel').style.display='none';if(observer)observer.disconnect();}}
-    renderNextBatch();
-    observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)renderNextBatch();});},{rootMargin:'400px 0px'});
-    observer.observe(document.getElementById('gallery-sentinel'));
+    function lockUI(){
+      tabsEl.classList.add('locked');
+      // Force show gate, block hash navigation
+      showView('#gate');
+    }
+
+    function unlockUI(){
+      tabsEl.classList.remove('locked');
+      showView('#home');
+    }
+
+    window.addEventListener('hashchange', () => {
+      if(isLocked()){
+        // Always keep user on gate until the time arrives
+        history.replaceState(null, '', '#gate');
+        showView('#gate');
+      } else {
+        showView(location.hash);
+      }
+    });
+
+    // Initial lock state
+    if(isLocked()) lockUI(); else unlockUI();
+
+    // ====== Gate countdown & auto-unlock ======
+    const gateEl = document.getElementById('gateCountdown');
+    function gateTick(){
+      const now = new Date();
+      const diff = UNLOCK_AT - now;
+      if(diff <= 0){
+        unlockUI();
+        return;
+      }
+      const d = Math.floor(diff/86400000);
+      const h = Math.floor((diff%86400000)/3600000);
+      const m = Math.floor((diff%3600000)/60000);
+      gateEl.textContent = `${d}d ${h}h ${m}m`;
+      // Keep trying; once it's time, unlockUI() will trigger
+      setTimeout(gateTick, 30000);
+    }
+    if(isLocked()) gateTick();
+
+    // ====== Confetti ======
+    document.getElementById('confettiBtn')?.addEventListener('click', () => {
+      for(let i=0;i<40;i++){
+        const s = document.createElement('div');
+        s.textContent = ['🎈','🎊','🎉','✨'][Math.floor(Math.random()*4)];
+        Object.assign(s.style,{position:'fixed',left:(Math.random()*100)+'vw',top:'-10vh',fontSize:(16+Math.random()*24)+'px',transition:'transform 2.2s ease-out,opacity 2.2s',zIndex:9999});
+        document.body.appendChild(s);
+        requestAnimationFrame(()=>{s.style.transform=`translateY(110vh) rotate(${Math.random()*720-360}deg)`;s.style.opacity=0;});
+        setTimeout(()=>s.remove(),2500);
+      }
+    });
+
+    // ====== Messages ======
+    const MESSAGES = [
+      {name:'Lucía',date:'2025-09-23',message:"I love you so much, let's make lots of new memories this year"},
+      {name:'Maya 🐾',date:'2025-09-23',message:"Woof, woof!"}
+    ];
+    const escapeHTML = s => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    document.getElementById('messageList').innerHTML = MESSAGES.map(m => `
+      <div class="col-6">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between">
+            <strong>${escapeHTML(m.name)}</strong>
+            <span class="subtitle">${escapeHTML(m.date)}</span>
+          </div>
+          <p>${escapeHTML(m.message)}</p>
+        </div>
+      </div>
+    `).join('');
+
+    // ====== Gallery (60 JPGs named matt_1.jpg ... matt_60.jpg), shuffled + fade-in ======
+    const GALLERY_IMAGES = Array.from({length:60}, (_,i) => `images/matt_${i+1}.jpg`);
+    const SHUFFLED_IMAGES = GALLERY_IMAGES.sort(() => Math.random() - 0.5);
+    const BATCH_SIZE = 10;
+    let galleryIndex = 0, observer;
+
+    function renderNextBatch(){
+      const gallery = document.getElementById('gallery');
+      const slice = SHUFFLED_IMAGES.slice(galleryIndex, galleryIndex + BATCH_SIZE);
+      slice.forEach((src,i) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'gallery-item';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = 'Memory ' + (galleryIndex + i + 1);
+        img.loading = 'lazy';
+        img.addEventListener('load', () => img.classList.add('is-visible')); // fade-in
+        wrap.appendChild(img);
+        gallery.appendChild(wrap);
+      });
+      galleryIndex += slice.length;
+      if(galleryIndex >= SHUFFLED_IMAGES.length){
+        const sentinel = document.getElementById('gallery-sentinel');
+        if (sentinel) sentinel.style.display = 'none';
+        if (observer) observer.disconnect();
+      }
+    }
+    // Only try to render gallery when not locked (so the gate stays clean)
+    if(!isLocked()){
+      renderNextBatch();
+      observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting) renderNextBatch(); });
+      }, { rootMargin:'400px 0px' });
+      observer.observe(document.getElementById('gallery-sentinel'));
+    } else {
+      // When it unlocks, start the gallery
+      const startGalleryAfterUnlock = setInterval(() => {
+        if(!isLocked()){
+          clearInterval(startGalleryAfterUnlock);
+          renderNextBatch();
+          observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if(e.isIntersecting) renderNextBatch(); });
+          }, { rootMargin:'400px 0px' });
+          observer.observe(document.getElementById('gallery-sentinel'));
+        }
+      }, 1000);
+    }
+
+    // ====== Presents (1..15, no repeats, persisted) ======
+    const STORE_KEY = 'presents_opened_v1';
+    const TOTAL_PRESENTS = 15;
+
+    function getOpened(){
+      try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || []; }
+      catch(e){ return []; }
+    }
+    function setOpened(arr){
+      localStorage.setItem(STORE_KEY, JSON.stringify(arr));
+    }
+
+    function getRemaining(){
+      const opened = new Set(getOpened());
+      return Array.from({length:TOTAL_PRESENTS}, (_,i)=>i+1).filter(n => !opened.has(n));
+    }
+
+    function drawNext(){
+      const remaining = getRemaining();
+      if(remaining.length === 0) return null;
+      const pick = remaining[Math.floor(Math.random()*remaining.length)];
+      const opened = getOpened();
+      opened.push(pick);
+      setOpened(opened);
+      return pick;
+    }
+
+    function renderPresentsState(latest = null){
+      const opened = getOpened().sort((a,b)=>a-b);
+      const remaining = getRemaining();
+      document.getElementById('currentPick').textContent = latest ?? '—';
+      document.getElementById('openedList').textContent = opened.length ? opened.join(', ') : '—';
+      document.getElementById('remainingCount').textContent = remaining.length;
+    }
+
+    document.getElementById('drawBtn')?.addEventListener('click', () => {
+      const pick = drawNext();
+      if(pick === null){
+        document.getElementById('currentPick').textContent = 'All done! 🎁';
+      } else {
+        document.getElementById('currentPick').textContent = pick;
+      }
+      renderPresentsState(pick ?? null);
+    });
+
+    document.getElementById('resetBtn')?.addEventListener('click', () => {
+      if(confirm('Reset the presents list? (Only for Lucía)')){
+        localStorage.removeItem(STORE_KEY);
+        renderPresentsState(null);
+      }
+    });
+
+    // Initial render
+    renderPresentsState(null);
 
     // Footer year
-    document.getElementById('year').textContent=new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
