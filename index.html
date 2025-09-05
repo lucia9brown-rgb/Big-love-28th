@@ -772,6 +772,18 @@ const UNLOCK_AT = new Date('2025-09-23T07:00:00Z');
   });
 })();
 
+    // Auto-play the song when "Song" tab is opened
+window.addEventListener('hashchange', () => {
+  if (location.hash === '#song') {
+    const player = document.querySelector('#song audio');
+    if (player) {
+      player.play().catch(err => {
+        console.log('Autoplay blocked, user must press play:', err);
+      });
+    }
+  }
+});
+
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
