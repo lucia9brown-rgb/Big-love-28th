@@ -308,7 +308,7 @@
     `).join('');
 
     // ====== Gallery (60 JPGs named matt_1.jpg ... matt_60.jpg), shuffled + fade-in ======
-    const GALLERY_IMAGES = Array.from({length:60}, (_,i) => `images/matt_${i+1}.jpg`);
+    const GALLERY_IMAGES=[...Array(60).keys()].map(i=>`images/matt_${i+1}.jpg`);
     const SHUFFLED_IMAGES = GALLERY_IMAGES.sort(() => Math.random() - 0.5);
     const BATCH_SIZE = 10;
     let galleryIndex = 0, observer;
