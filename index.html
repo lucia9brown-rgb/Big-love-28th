@@ -241,6 +241,8 @@ button, input, select, textarea {
         <a class="tab" href="#messages">Messages</a>
         <a class="tab" href="#facts">Quiz</a>
         <a class="tab" href="#presents">Presents</a>
+        <a class="tab" href="#cookies">Fortune cookies</a>
+        <a class="tab" href="#future">To be continued...</a>
         <a class="tab" href="#about">About</a>
       </nav>
     </div>
@@ -289,10 +291,10 @@ button, input, select, textarea {
       <div class="card">
         <h2>Timeline</h2>
         <div class="grid">
-          <div class="col-6 card"><h3>2020 — First nights together…</h3><p>Not too much fun, but fun enough!</p></div>
+          <div class="col-6 card"><h3>2020 — First nights together…</h3><p>Our story started here. It wasn’t the easiest of times, but somehow those first nights between parcels and face masks set the tone for us. We laughed through the mess and still had fun when it didn’t look perfect. Looking back, I’m glad we began this way! </p></div>
           <div class="col-6 card"><h3>2021 — London</h3><p>Leeds gave us memories, but London gave us our own chapter. Moving here wasn’t simple, but we found our rhythm together. New places, new routines, and a new life that became ours. This was the year we really grew as a team.</p></div>
           <div class="col-6 card"><h3>2022 — Leyton!</h3><p>We made a home out of Kallaxes and shared mornings. Combining our things wasn’t just furniture — it was two lives blending. Our little flat became the first proper place that was truly “us.” And it showed how well we fit together.</p></div>
-          <div class="col-6 card"><h3>2023 — This year was full of trips, long walks, and silly adventures. We said yes to more, discovered more, and kept laughing along the way. Even on quiet days, there was always something that made me feel lucky. 2023 was a year of making the most of every moment.</h3><p>We kept exploring and making the most of our days</p></div>
+          <div class="col-6 card"><h3>2023 — More adventures</h3><p>This year was full of trips, long walks, and silly adventures. We said yes to more, discovered more, and kept laughing along the way. Even on quiet days, there was always something that made me feel lucky. 2023 was a year of making the most of every moment.</h3><p>We kept exploring and making the most of our days</p></div>
           <div class="col-6 card"><h3>2024 — Casita</h3><p>The year we committed to something bigger than ourselves. Buying our casita wasn’t just a contract — it was proof of how much we believe in us. I can already imagine the next years filling its rooms with love (and maybe a bit of chaos, a few wees, dust, plaster...). </p></div>
           <div class="col-6 card"><h3>2025 — Maya</h3><p>The year we became three. Maya turned our house into a home full of little steps and wagging tails. She’s a challenge, a joy, and already one of the best things we’ve done together. This year feels like the start of a whole new chapter.</p></div>
         </div>
@@ -333,11 +335,12 @@ button, input, select, textarea {
         </div>
       </div>
     </section>
+    
 <!-- QUIZ -->
 <section id="facts" class="view hide">
   <div class="card">
     <h2>Random quiz</h2>
-    <p class="subtitle">10 quick questions. Tap an answer to reveal if you are right!</p>
+    <p class="subtitle">Ten random questions that mix facts about age, time, and the human body with some surprises. Nothing too serious, just a chance to test your guesses and learn a few numbers along the way. You only get one chance at each answer — so choose wisely!</p>
 
     <div id="quizWrap" class="grid"></div>
 
@@ -349,11 +352,81 @@ button, input, select, textarea {
   </div>
 </section>
 
+
+      <!-- FORTUNE COOKIES -->
+    <section id="cookies" class="view hide">
+  <div class="card">
+    <h2>Fortune cookies</h2>
+    <p class="subtitle">
+      Three cookies, three small fortunes made just for you. Pick one and it will crack open to reveal your message.
+      They’re not serious predictions, I can't do that yet — just a bit of fun.
+    </p>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin:12px 0">
+      <button class="btn cookie" data-msg="Maya says: today you earn 200 extra kisses and unlimited sofa privileges.">🥠 Cookie 1</button>
+      <button class="btn cookie" data-msg="Presents whisper: one gift will surprise you twice — it has a twin you didn’t expect.">🥠 Cookie 2</button>
+      <button class="btn cookie" data-msg="Feeling lucky: buy a scratch card today; small luck is on your side.">🥠 Cookie 3</button>
+      <button class="btn" id="cookiesReset" title="Reset fortunes">↺ Reset</button>
+    </div>
+
+    <div class="card" style="margin-top:10px">
+      <strong>Your fortune:</strong>
+      <p id="fortuneText" class="subtitle" style="margin:.4rem 0 0">—</p>
+    </div>
+  </div>
+</section>
+
+ 
+    <!-- TO BE CONTINUED -->
+   <section id="future" class="view hide">
+  <div class="card">
+    <h2>To be continued</h2>
+    <p class="subtitle">
+      We have lots of plans in mind — this is just a small selection for us to keep in sight.
+      I can’t wait to do these, and so much more, together.
+    </p>
+
+    <div class="grid">
+      <div class="col-6 card">
+        <h3>Road trip with Maya</h3>
+        <p>Our little explorer in the back seat, us on the road, discovering new places together.</p>
+        <img src="images/bucket_roadtrip.jpg" alt="Road trip with Maya" loading="lazy" style="width:100%;border-radius:12px;margin-top:8px;">
+      </div>
+
+      <div class="col-6 card">
+        <h3>South America</h3>
+        <p>Travelling together to a whole new continent — food, culture, colours, and adventures waiting for us.</p>
+        <img src="images/bucket_southamerica.jpg" alt="South America travel" loading="lazy" style="width:100%;border-radius:12px;margin-top:8px;">
+      </div>
+
+      <div class="col-6 card">
+        <h3>Leyton Orient matches</h3>
+        <p>Cheering as locals, sharing the energy of the crowd, and making football part of our routine here.</p>
+        <img src="images/bucket_orient.jpg" alt="Leyton Orient match" loading="lazy" style="width:100%;border-radius:12px;margin-top:8px;">
+      </div>
+
+      <div class="col-6 card">
+        <h3>Lake District trip</h3>
+        <p>Hiking trails, cosy pubs for the three of us, quiet mornings — just us, nature, and some drinks too!</p>
+        <img src="images/bucket_lakedistrict.jpg" alt="Lake District" loading="lazy" style="width:100%;border-radius:12px;margin-top:8px;">
+      </div>
+
+      <div class="col-12 card">
+        <h3>Open kitchen</h3>
+        <p>The end of renovation and the start of a new chapter — cooking, talking, laughing in a space we made ours.</p>
+        <img src="images/bucket_kitchen.jpg" alt="Open kitchen renovation" loading="lazy" style="width:100%;border-radius:12px;margin-top:8px;">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
     <!-- ABOUT -->
     <section id="about" class="view hide">
       <div class="card">
         <h2>About this site</h2>
-        <p>This site is my homemade project for your birthday. It took time (longer than I expected), but it was built with care, love, and a bit of stubbornness. Made with simple tools and lots of patience, but above all... made for you. Te quiero tre cime. </p>
+        <p>This site is my homemade project for your 28th Birthday. It took time (more than I am happy to admit), but it was built with care, love, and a bit of stubbornness. Made with simple tools and lots of patience, but above all... made for you.                Te quiero tre cime. </p>
       </div>
     </section>
   </main>
@@ -656,6 +729,28 @@ const UNLOCK_AT = new Date('2025-09-23T07:00:00Z');
         r.addEventListener('animationend', () => r.remove());
       });
     })();
+    
+ // Fortune cookies logic
+(function cookiesGame(){
+  const out = document.getElementById('fortuneText');
+  const buttons = Array.from(document.querySelectorAll('.cookie'));
+  const reset = document.getElementById('cookiesReset');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.opened === '1') return;
+      btn.dataset.opened = '1';
+      out.textContent = btn.dataset.msg || '—';
+      btn.classList.add('pulse');          // cute micro pulse on reveal
+      setTimeout(() => btn.classList.remove('pulse'), 900);
+    });
+  });
+
+  reset?.addEventListener('click', () => {
+    buttons.forEach(b => { b.dataset.opened = '0'; b.classList.remove('pulse'); });
+    out.textContent = '—';
+  });
+})();
 
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
