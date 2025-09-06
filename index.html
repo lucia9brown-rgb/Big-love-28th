@@ -561,7 +561,10 @@ const UNLOCK_AT = new Date('2025-09-23T07:00:00Z');
     `).join('');
 
     // ====== Gallery (60 JPGs named matt_1.jpg ... matt_60.jpg), shuffled + fade-in ======
-    const GALLERY_IMAGES=[...Array(60).keys()].map(i=>`images/matt_${i+1}.jpg`);
+    const GALLERY_IMAGES = [...Array(60).keys()]
+  .map(i => i + 1)
+  .filter(n => n !== 49) // <- skip image 49
+  .map(n => `images/matt_${n}.jpg`);
     const SHUFFLED_IMAGES = GALLERY_IMAGES.sort(() => Math.random() - 0.5);
     const BATCH_SIZE = 10;
     let galleryIndex = 0, observer;
